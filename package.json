@@ -1,0 +1,14 @@
+{
+  "name": "bumerang-store",
+  "version": "1.0.0",
+  "description": "A project I'm doing to both learn Express/Mongoose and help my family business with their small clothes store.",
+  "main": "index.js",
+  "dependencies":{
+    "express": "4.16.3",
+    "body-parser": "1.18.3",
+    "mongoose": "5.2.5"
+  },
+  "repository": "https://github.com/MDKi/bumerang-store",
+  "author": "Gabriel Fuertes",
+  "license": "MIT"
+}
