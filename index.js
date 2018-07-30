@@ -12,7 +12,7 @@ const db = mongoose.connection;
 
 // For testing purposes
 app.get('/api', (req, res) => {
-	res.send('Working! 😊');
+  res.send('Working! 😊');
 });
 
 app.listen(3000);
