@@ -47,7 +47,18 @@ app.post('/api/products', (req, res) => {
     res.json(product);
   })
 });
-// app.put();
+
+app.put('/api/products/:_id', (req, res) => {
+  const id = req.params._id;
+  const product = req.body;
+  Product.updateProduct(id, product, {}, (err, product) => {
+    if(err) {
+      throw err;
+    }
+    res.json(product);
+  });
+});
+
 // app.delete();
 
 app.listen(3000);

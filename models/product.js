@@ -34,6 +34,6 @@ module.exports.updateProduct = (id, product, options, callback) => {
 }
 
 module.exports.removeProduct = (id, callback) => {
-	var query = {_id: id};
+	const query = {_id: id};
 	Product.remove(query, callback);
 }
