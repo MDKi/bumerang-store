@@ -26,7 +26,7 @@ app.get('/api/products', (req, res) => {
       throw err;
     }
     res.json(products);
-  })
+  });
 });
 
 app.get('/api/products/:_id', (req, res) => {
@@ -35,8 +35,8 @@ app.get('/api/products/:_id', (req, res) => {
       throw err;
     }
     res.json(product);
-  })
-})
+  });
+});
 
 app.post('/api/products', (req, res) => {
   let product = req.body;
@@ -45,7 +45,7 @@ app.post('/api/products', (req, res) => {
       throw err;
     }
     res.json(product);
-  })
+  });
 });
 
 app.put('/api/products/:_id', (req, res) => {
@@ -59,6 +59,14 @@ app.put('/api/products/:_id', (req, res) => {
   });
 });
 
-// app.delete();
+app.delete('/api/products/:_id', (req, res) => {
+  const id = req.params._id;
+  Product.removeProduct(id, (err, product) => {
+    if(err) {
+      throw err;
+    }
+    res.json(product);
+  });
+});
 
 app.listen(3000);
