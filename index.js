@@ -3,16 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// let route = require('routes');
-// app.use("/", route);
-
 app.use(bodyParser.json());
 
 const Product = require('./models/product');
 
 // Database
-const dbURL = 'mongodb://localhost/bumerang-store';
-mongoose.connect(dbURL);
+const dbURL = 'mongodb://localhost:27017/bumerang-store';
+mongoose.connect(dbURL, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 // For testing purposes
