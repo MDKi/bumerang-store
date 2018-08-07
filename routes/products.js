@@ -5,7 +5,7 @@ const router = express.Router();
 const Product = require("../models/product");
 
 router.get("/", (req, res) => {
-  Product.getProducts((err, products) => {
+  getProducts((err, products) => {
     if (err) {
       throw err;
     }
@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:_id", (req, res) => {
-  Product.getProductById(req.params._id, (err, product) => {
+  getProductById(req.params._id, (err, product) => {
     if (err) {
       throw err;
     }
@@ -24,7 +24,7 @@ router.get("/:_id", (req, res) => {
 
 router.post("/", (req, res) => {
   let product = req.body;
-  Product.addProduct(product, (err, product) => {
+  addProduct(product, (err, product) => {
     if (err) {
       throw err;
     }
@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
 router.put("/:_id", (req, res) => {
   const id = req.params._id;
   const product = req.body;
-  Product.updateProduct(id, product, {}, (err, product) => {
+  updateProduct(id, product, {}, (err, product) => {
     if (err) {
       throw err;
     }
@@ -45,12 +45,37 @@ router.put("/:_id", (req, res) => {
 
 router.delete("/:_id", (req, res) => {
   const id = req.params._id;
-  Product.removeProduct(id, (err, product) => {
+  removeProduct(id, (err, product) => {
     if (err) {
       throw err;
     }
     res.json(product);
   });
 });
+
+getProducts = (callback, limit) => {
+	Product.find(callback).limit(limit);
+}
+
+getProductById = (id, callback) => {
+	Product.findById(id, callback);
+}
+
+addProduct = (product, callback) => {
+	Product.create(product, callback);
+}
+
+updateProduct = (id, product, options, callback) => {
+	const query = {_id: id};
+	const update = {
+    name: product.name
+	}
+	Product.findOneAndUpdate(query, update, options, callback);
+}
+
+removeProduct = (id, callback) => {
+	const query = {_id: id};
+	Product.remove(query, callback);
+}
 
 module.exports = router;
