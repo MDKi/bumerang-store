@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 
 app.use(bodyParser.json());
 
-const Product = require('./models/product');
-
 const products = require("./routes/products");
 
 // Database
