@@ -4,10 +4,14 @@ const productSchema = mongoose.Schema({
   name: {
     type: String
   },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
   create_date: {
     type: Date,
     default: Date.now
   }
 });
 
-const Product = module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('Product', productSchema);
