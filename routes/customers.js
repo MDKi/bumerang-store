@@ -6,23 +6,27 @@ const Customer = customer.Customer;
 const Individual = customer.Individual;
 const Organization = customer.Organization;
 
+
 router.get("/", (req, res) => {
+  const getReqLimit = 0;
   Customer.find((err, customers) => {
     if (err) { throw err; }
     res.json(customers);
-  }).limit(req.body.limit);
+  }).limit(getReqLimit);
 });
 router.get("/individuals", (req, res) => {
+  const getReqLimit = 0;
   Individual.find((err, customers) => {
     if (err) { throw err; }
     res.json(customers);
-  }).limit(req.body.limit);
+  }).limit(getReqLimit);
 });
 router.get("/organizations", (req, res) => {
+  const getReqLimit = 0;
   Organization.find((err, customers) => {
     if (err) { throw err; }
     res.json(customers);
-  }).limit(req.body.limit);
+  }).limit(getReqLimit);
 });
 
 router.get("/:_id", (req, res) => {

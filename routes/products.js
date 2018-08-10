@@ -4,14 +4,13 @@ const router = express.Router();
 
 const Product = require("../models/product");
 
-router.get("/", (req, res) => {
-  console.log(req.body.limit); // This is returning undefined 🤔
-  console.log(req.body); // Because this is returning an empty object... am I testing correctly?
 
+router.get("/", (req, res) => {
+  const getReqLimit = 0; // req.body.limit?
   Product.find((err, products) => {
     if (err) { throw err; }
     res.json(products);
-  }).limit(req.body.limit);
+  }).limit(getReqLimit);
 });
 
 router.get("/:_id", (req, res) => {
