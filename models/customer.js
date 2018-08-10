@@ -34,5 +34,12 @@ const organizationSchema = mongoose.Schema({
     type: String,
   },
 }, options);
+const Customer = mongoose.model('Customer', customerSchema);
+const Individual = Customer.discriminator('Individual', individualSchema);
+const Organization = Customer.discriminator('Organization', organizationSchema);
 
-module.exports = mongoose.model('Customer', customerSchema);
+module.exports = {
+  Customer: Customer,
+  Individual: Individual,
+  Organization: Organization,
+};
