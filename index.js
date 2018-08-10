@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 app.use(bodyParser.json());
 
 const products = require("./routes/products");
+const customers = require("./routes/customers");
 
 // Database
 const dbURL = 'mongodb://localhost:27017/bumerang-store';
@@ -18,5 +19,6 @@ app.get('/api', (req, res) => {
 });
 
 app.use("/api/products", products);
+app.use("/api/customers", customers);
 
 app.listen(3000);
