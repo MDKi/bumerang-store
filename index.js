@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 const products = require("./routes/products");
 const customers = require("./routes/customers");
@@ -21,4 +20,9 @@ app.get('/api', (req, res) => {
 app.use("/api/products", products);
 app.use("/api/customers", customers);
 
-app.listen(3000);
+// Error handler
+app.use((error, req, res, next) => {
+  console.log(error);
+})
+
+app.listen(3000, () => console.log("Listening on port 3000"));

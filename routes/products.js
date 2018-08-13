@@ -1,60 +1,64 @@
 const express = require("express");
-
 const router = express.Router();
 
 const Product = require("../models/product");
 
 
-router.get("/", (req, res) => {
-  const getReqLimit = 0; // req.body.limit?
-  Product.find((err, products) => {
-    if (err) { throw err; }
+router.get("/", async (req, res, next) => {
+  try {
+    const [limit, page] = [5000, req.query.page];
+    const skip = page * limit;
+    const products = await Product.find({}, {}, { skip, limit })
     res.json(products);
-  }).limit(getReqLimit);
-});
-
-router.get("/:_id", (req, res) => {
-  Product.findById(req.params._id, (err, product) => {
-    if (err) { throw err; }
-    res.json(product);
-  });
-});
-
-router.post("/", (req, res) => {
-  const product = req.body;
-
-  Product.create(product, (err, product) => {
-    if (err) { throw err; }
-    res.json(product);
-  })
-});
-
-router.put("/:_id", (req, res) => {
-  const product = req.body;
-  const update = {
-    name: product.name
   }
-
-  Product.findOneAndUpdate({_id: req.params._id}, update, {}, (err, product) => {
-    if (err) { throw err; }
-    res.json(product);
-  });
+  catch (err) { next({ route: "GET products", err }) }
 });
 
-router.delete("/:_id", (req, res) => {
-  // Eventually needs to be changed to #orders related to this product === 0
-  if (false) {
-  Product.remove({_id: req.params._id}, (err, product) => {
-    if (err) { throw err; }
+router.get("/:_id", async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params._id);
     res.json(product);
-  });
   }
-  else {
-    Product.findOneAndUpdate({_id: req.params._id}, {isActive: false}, {}, (err, product) => {
-      if (err) { throw err; }
+  catch (err) { next({ route: "GET products/:_id", err }) }
+});
+
+
+router.post("/", async (req, res, next) => {
+  try {
+    const product = await Product.create(req.body);
+    res.json(product);
+  }
+  catch (err) { next({ route: "POST products", err }) }
+});
+
+
+router.put("/:_id", async (req, res, next) => {
+  try {
+    let product = req.body;
+    const update = {
+      name: product.name
+    }
+
+    product = await Product.findOneAndUpdate({ _id: req.params._id }, update, {});
+    res.json(product);
+  }
+  catch (err) { next({ route: "PUT products/:_id", err }) }
+});
+
+
+router.delete("/:_id", async (req, res, next) => {
+  try {
+    // Eventually needs to be changed to #orders related to this product === 0
+    if (false) {
+      const product = await Product.remove({ _id: req.params._id });
       res.json(product);
-    });
+    }
+    else {
+      const product = await Product.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, {});
+      res.json(product);
+    }
   }
+  catch (err) { next({ route: "DELETE products", err }) }
 });
 
 module.exports = router;

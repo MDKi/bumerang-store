@@ -39,7 +39,7 @@ const Individual = Customer.discriminator('Individual', individualSchema);
 const Organization = Customer.discriminator('Organization', organizationSchema);
 
 module.exports = {
-  Customer: Customer,
-  Individual: Individual,
-  Organization: Organization,
+  Customer,
+  Individual,
+  Organization,
 };
