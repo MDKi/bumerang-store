@@ -4,10 +4,6 @@ const router = express.Router();
 const { Customer, Individual, Organization } = require("../models/customer");
 
 router.get("/", async (req, res, next) => {
-  // If I used Promises
-  // Customer.find({})
-  //   .then(customers => res.json(customers))
-  //   .catch(err => next(err))
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
@@ -26,14 +22,6 @@ router.get("/individuals", async (req, res, next) => {
   catch (err) { next({ route: "GET customers/individuals", err }) }
 });
 router.get("/organizations", async (req, res, next) => {
-  // I don't remember if I want to keep this here or in the error handler...
-  // Organization.find((err, customers) => {
-  //   if (customers.length === 0) {
-  //     res.status(404).json({ message: "No customers" })
-  //     return;
-  //   }
-  //   res.json(customers);
-  // }, {}, { limit: 5000 });
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
