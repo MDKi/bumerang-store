@@ -8,7 +8,8 @@ router.get("/", async (req, res, next) => {
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
-    const products = await Product.find({}, {}, { skip, limit })
+    const query = req.query.isActive ? { isActive: true } : {};
+    const products = await Product.find(query, {}, { skip, limit })
     res.json(products);
   }
   catch (err) { next({ route: "GET products", err }) }

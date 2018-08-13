@@ -7,7 +7,8 @@ router.get("/", async (req, res, next) => {
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
-    const customers = await Customer.find({}, {}, { skip, limit })
+    const query = req.query.isActive ? { isActive: true } : {};
+    const customers = await Customer.find(query, {}, { skip, limit })
     res.json(customers);
   }
   catch (err) { next({ route: "GET customers", err }) }
@@ -16,7 +17,8 @@ router.get("/individuals", async (req, res, next) => {
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
-    const customers = await Individual.find({}, {}, { skip, limit })
+    const query = req.query.isActive ? { isActive: true } : {};
+    const customers = await Individual.find(query, {}, { skip, limit })
     res.json(customers);
   }
   catch (err) { next({ route: "GET customers/individuals", err }) }
@@ -25,7 +27,8 @@ router.get("/organizations", async (req, res, next) => {
   try {
     const [limit, page] = [5000, req.query.page];
     const skip = page * limit;
-    const customers = await Organization.find({}, {}, { skip, limit })
+    const query = req.query.isActive ? { isActive: true } : {};
+    const customers = await Organization.find(query, {}, { skip, limit })
     res.json(customers);
   }
   catch (err) { next({ route: "GET customers/organizations", err }) }
