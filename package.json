@@ -4,9 +4,17 @@
   "description": "A project I'm doing to both learn Express/Mongoose and help my family business with their small clothes store.",
   "main": "index.js",
   "dependencies":{
-    "express": "4.16.3",
-    "body-parser": "1.18.3",
-    "mongoose": "5.2.5"
+    "express": "^4.16.3",
+    "mongoose": "^5.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start-pi": "NODE_ENV='pi' node index.js",
+    "test": "NODE_ENV='test' nodemon index.js"
   },
   "repository": "https://github.com/MDKi/bumerang-store",
   "author": "Gabriel Fuertes",

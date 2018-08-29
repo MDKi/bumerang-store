@@ -4,12 +4,13 @@ const mongoose = require('mongoose');
 
 app.use(express.json());
 
+const config = require("./config/config-index.js");
+
 const products = require("./routes/products");
 const customers = require("./routes/customers");
 
 // Database
-const dbURL = 'mongodb://localhost:27017/bumerang-store';
-mongoose.connect(dbURL, { useNewUrlParser: true });
+mongoose.connect(config.db, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 // For testing purposes
@@ -25,4 +26,4 @@ app.use((error, req, res, next) => {
   console.log(error);
 })
 
-app.listen(3000, () => console.log("Listening on port 3000"));
+app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
