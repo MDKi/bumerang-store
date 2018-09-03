@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 app.use(express.json());
 
-const config = require("./config/config-index.js");
+const config = require("./config");
 
 const products = require("./routes/products");
 const customers = require("./routes/customers");
@@ -27,3 +27,5 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+
+module.exports = app; // To test with Mocha
