@@ -1,65 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const Product = require("../models/product");
+const {
+  getProducts,
+  getProductByID,
+  createProduct,
+  updateProduct,
+  removeProduct,
+} = require("../services/product.js");
 
+router.get("/", getProducts);
+router.get("/:_id", getProductByID);
 
-router.get("/", async (req, res, next) => {
-  try {
-    const [limit, page] = [5000, req.query.page];
-    const skip = page * limit;
-    const query = req.query.isActive ? { isActive: true } : {};
-    const products = await Product.find(query, {}, { skip, limit })
-    res.json(products);
-  }
-  catch (err) { next({ route: "GET products", err }) }
-});
+router.post("/", createProduct);
 
-router.get("/:_id", async (req, res, next) => {
-  try {
-    const product = await Product.findById(req.params._id);
-    res.json(product);
-  }
-  catch (err) { next({ route: "GET products/:_id", err }) }
-});
+router.put("/:_id", updateProduct);
 
-
-router.post("/", async (req, res, next) => {
-  try {
-    const product = await Product.create(req.body);
-    res.json(product);
-  }
-  catch (err) { next({ route: "POST products", err }) }
-});
-
-
-router.put("/:_id", async (req, res, next) => {
-  try {
-    let product = req.body;
-    const update = {
-      name: product.name
-    }
-
-    product = await Product.findOneAndUpdate({ _id: req.params._id }, update, {});
-    res.json(product);
-  }
-  catch (err) { next({ route: "PUT products/:_id", err }) }
-});
-
-
-router.delete("/:_id", async (req, res, next) => {
-  try {
-    // Eventually needs to be changed to #orders related to this product === 0
-    if (false) {
-      const product = await Product.remove({ _id: req.params._id });
-      res.json(product);
-    }
-    else {
-      const product = await Product.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, {});
-      res.json(product);
-    }
-  }
-  catch (err) { next({ route: "DELETE products", err }) }
-});
+router.delete("/:_id", removeProduct);
 
 module.exports = router;
