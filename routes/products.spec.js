@@ -2,15 +2,16 @@ const request = require('supertest');
 const app = require("../index.js");
 
 describe("/api/products", () => {
+  const url = "/api/products/";
   let testProduct;
   test("can list products", async () => {
     await request(app)
-      .get('/api/products')
+      .get(url)
       .expect(200);
   });
   test("can post a product", async () => {
     const response = await request(app)
-      .post('/api/products')
+      .post(url)
       .send({
         name: "testProduct"
       })
@@ -25,20 +26,20 @@ describe("/api/products", () => {
       isActive: true,
     });
 
-    const now = new Date(Date.now()).toJSON();
+    const now = new Date().toJSON();
     const fiveSecondsAgo = new Date(Date.now() - 5000).toJSON();
     expect(testProduct.create_date < now).toBe(true);
     expect(testProduct.create_date > fiveSecondsAgo).toBe(true);
   });
   test("can get a product", async () => {
     const response = await request(app)
-      .get(`/api/products/${testProduct._id}`)
+      .get(`${url}${testProduct._id}`)
       .expect(200);
     expect(response.body).toEqual(testProduct);
   });
   test("can update a product", async () => {
     const response = await request(app)
-      .put(`/api/products/${testProduct._id}`)
+      .put(`${url}${testProduct._id}`)
       .send({
         name: "modifiedTestProduct"
       })
@@ -54,7 +55,7 @@ describe("/api/products", () => {
   });
   test("can delete a product", async () => {
     const response = await request(app)
-      .delete(`/api/products/${testProduct._id}`)
+      .delete(`${url}${testProduct._id}`)
       .expect(200);
 
     // This is the expected behavior for now

@@ -61,7 +61,7 @@ const updateCustomer = async (req, res, next) => {
       email: customer.email,
     }
 
-    customer = await Customer.findOneAndUpdate({ _id: req.params._id }, update);
+    customer = await Customer.findOneAndUpdate({ _id: req.params._id }, update, { new: true });
     res.json(customer);
   }
   catch (err) { next({ route: "PUT customers/:_id", err }) }
@@ -75,7 +75,7 @@ const deleteCustomer = async (req, res, next) => {
       res.json(customer);
     }
     else {
-      const customer = await Customer.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, {});
+      const customer = await Customer.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, { new: true });
       res.json(customer);
     }
   }
