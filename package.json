@@ -16,7 +16,7 @@
     "start": "node index.js",
     "start-pi": "NODE_ENV='pi' node index.js",
     "debug": "NODE_ENV='test' nodemon index.js",
-    "test": "NODE_ENV='test' jest --watch"
+    "test": "NODE_ENV='test' jest --watch --runInBand"
   },
   "repository": "https://github.com/MDKi/bumerang-store",
   "author": "Gabriel Fuertes",

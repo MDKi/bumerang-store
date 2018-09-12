@@ -1,7 +1,15 @@
 const request = require('supertest');
-const app = require("../index.js");
+const app = require("../app.js");
+const mongoose = require("mongoose");
+const config = require("../config");
 
 describe("/api/products", () => {
+  beforeAll(async () => {
+    await mongoose.connect(config.db);
+  });
+  afterAll(async () => {
+    await mongoose.disconnect();
+  })
   const url = "/api/products/";
   let testProduct;
   test("can list products", async () => {

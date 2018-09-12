@@ -1,41 +1,41 @@
 const { Customer, Individual, Organization } = require("../models/customer");
 
-const getCustomers = async (req, res, next) => {
+const getCustomers = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
   const query = req.query.isActive ? { isActive: true } : {};
   const customers = await Customer.find(query, {}, { skip, limit })
   res.json(customers);
 };
-const getIndividuals = async (req, res, next) => {
+const getIndividuals = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
   const query = req.query.isActive ? { isActive: true } : {};
   const customers = await Individual.find(query, {}, { skip, limit })
   res.json(customers);
 };
-const getOrganizations = async (req, res, next) => {
+const getOrganizations = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
   const query = req.query.isActive ? { isActive: true } : {};
   const customers = await Organization.find(query, {}, { skip, limit })
   res.json(customers);
 };
-const getCustomerByID = async (req, res, next) => {
+const getCustomerByID = async (req, res) => {
   const customer = await Customer.findById(req.params._id);
   res.json(customer);
 };
 
-const createIndividual = async (req, res, next) => {
+const createIndividual = async (req, res) => {
   const customer = await Individual.create(req.body);
   res.json(customer);
 };
-const createOrganization = async (req, res, next) => {
+const createOrganization = async (req, res) => {
   const customer = await Organization.create(req.body);
   res.json(customer);
 };
 
-const updateCustomer = async (req, res, next) => {
+const updateCustomer = async (req, res) => {
   let customer = req.body;
   // TO-DO
   const update = {
@@ -46,7 +46,7 @@ const updateCustomer = async (req, res, next) => {
   res.json(customer);
 };
 
-const deleteCustomer = async (req, res, next) => {
+const deleteCustomer = async (req, res) => {
   // Eventually needs to be changed to #orders related to this customer === 0
   if (false) {
     const customer = await Customer.remove({ _id: req.params._id });
