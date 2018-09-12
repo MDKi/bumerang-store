@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const catchError = require("../middleware/catchError.js");
 
 const {
   getProducts,
@@ -9,13 +10,13 @@ const {
   removeProduct,
 } = require("../services/product.js");
 
-router.get("/", getProducts);
-router.get("/:_id", getProductByID);
+router.get("/", catchError(getProducts, "Couldn't get products!", "GET /products"));
+router.get("/:_id", catchError(getProductByID, "Couldnt't get a product!", "GET /products/:_id"));
 
-router.post("/", createProduct);
+router.post("/", catchError(createProduct, "Couldn't create a product!", "POST /products"));
 
-router.put("/:_id", updateProduct);
+router.put("/:_id", catchError(updateProduct, "Couldn't update the product", "PUT /products/:_id"));
 
-router.delete("/:_id", removeProduct);
+router.delete("/:_id", catchError(removeProduct, "Couldn't remove the product", "DELETE /products/:_id"));
 
 module.exports = router;
