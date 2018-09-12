@@ -35,24 +35,28 @@ const updateProduct = async (req, res, next) => {
 
     // This seems to return the result of the query, though I wanted to return the modified object...
     product = await Product.findOneAndUpdate({ _id: req.params._id }, update, {});
+    // temp fix
+    product = await Product.findById(req.params._id);
     res.json(product);
   }
   catch (err) { next({ route: "PUT products/:_id", err }) }
 };
 
 const removeProduct = async (req, res, next) => {
-try {
-  // Eventually needs to be changed to #orders related to this product === 0
-  if (false) {
-    const product = await Product.remove({ _id: req.params._id });
-    res.json(product);
+  try {
+    // Eventually needs to be changed to #orders related to this product === 0
+    if (false) {
+      const product = await Product.remove({ _id: req.params._id });
+      res.json(product); // 🤔 What am I supposed to return if I deleted it? Maybe I need to re-define what is returned across the project...
+    }
+    else {
+      const product = await Product.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, {});
+      // temp fix
+      productReturned = await Product.findById(req.params._id);
+      res.json(productReturned);
+    }
   }
-  else {
-    const product = await Product.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, {});
-    res.json(product);
-  }
-}
-catch (err) { next({ route: "DELETE products", err }) }
+  catch (err) { next({ route: "DELETE products", err }) }
 };
 
 module.exports = {
