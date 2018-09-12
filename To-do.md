@@ -1,0 +1,15 @@
+- [] Orders.
+  - [] Order Model.
+  - [] Change products and customers DELETE logic.
+- [] Re-think what responses should contain.
+    (Maybe a message, oldObject and updatedObject)
+    - message would contain information about the transaction
+    - oldObject would contain the query result while updating or deleting
+    - updatedObject would be the created or updated object, or empty while deleting
+- [] Rename Customer to Person, and its methods, route and service.
+- [] Other Models
+  - [] ParamTag
+  - [] ParamCategory
+  - [] ParamOrderType
+  - [] AttributeValue
+  - [] Attribute
