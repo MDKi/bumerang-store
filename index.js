@@ -26,6 +26,6 @@ app.use((error, req, res, next) => {
   console.log(error);
 })
 
-app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+app.listen(config.port, () => console.log(`Listening...`));
 
-module.exports = app; // To test with Mocha
+module.exports = app; // To test with Jest

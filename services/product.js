@@ -33,6 +33,7 @@ const updateProduct = async (req, res, next) => {
       name: product.name
     }
 
+    // This seems to return the result of the query, though I wanted to return the modified object...
     product = await Product.findOneAndUpdate({ _id: req.params._id }, update, {});
     res.json(product);
   }

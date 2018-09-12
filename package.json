@@ -8,9 +8,7 @@
     "mongoose": "^5.2.5"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.2.0",
-    "mocha": "^5.2.0",
+    "jest": "^23.5.0",
     "nodemon": "^1.18.3",
     "supertest": "^3.1.0"
   },
@@ -18,7 +16,7 @@
     "start": "node index.js",
     "start-pi": "NODE_ENV='pi' node index.js",
     "debug": "NODE_ENV='test' nodemon index.js",
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "NODE_ENV='test' jest"
   },
   "repository": "https://github.com/MDKi/bumerang-store",
   "author": "Gabriel Fuertes",
