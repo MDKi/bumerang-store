@@ -1,15 +1,14 @@
 const request = require('supertest');
 const app = require("../app.js");
-const mongoose = require("mongoose");
-const config = require("../config");
+const { connectDB, disconnectDB } = require("../helpers/testDB.js")
 
 describe("/api/products", () => {
-  beforeAll(async () => {
-    await mongoose.connect(config.db);
+  beforeAll(() => {
+    connectDB();
   });
-  afterAll(async () => {
-    await mongoose.disconnect();
-  })
+  afterAll(() => {
+    disconnectDB();
+  });
   const url = "/api/products/";
   let testProduct;
   test("can list products", async () => {
@@ -66,7 +65,8 @@ describe("/api/products", () => {
       .delete(`${url}${testProduct._id}`)
       .expect(200);
 
-    // This is the expected behavior for now
+    // This is the expected behavior for now;
+    // The moment I start to implement remove I should expect(response.body).toMatchObject({"n":1,"ok":1});
     expect(response.body).toMatchObject({
       _id: testProduct._id,
       name: "modifiedTestProduct",
