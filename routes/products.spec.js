@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require("../app.js");
-const { connectDB, disconnectDB } = require("../helpers/testDB.js")
+const { connectDB, disconnectDB } = require("../helpers/testDB.js");
+const newDateCheck = require("../helpers/newDateCheck.js");
 
 describe("/api/products", () => {
   beforeAll(() => {
@@ -33,10 +34,7 @@ describe("/api/products", () => {
       isActive: true,
     });
 
-    const now = new Date().toJSON();
-    const fiveSecondsAgo = new Date(Date.now() - 5000).toJSON();
-    expect(testProduct.create_date < now).toBe(true);
-    expect(testProduct.create_date > fiveSecondsAgo).toBe(true);
+    newDateCheck(testProduct.create_date);
   });
   test("can get a product", async () => {
     const response = await request(app)
