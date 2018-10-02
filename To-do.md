@@ -1,5 +1,5 @@
 - [] Orders.
-  - [] Order Model.
+  - [x] Order Model.
   - [] Change products and customers DELETE logic.
 - [] Re-think what responses should contain.
     (Maybe a message, oldObject and updatedObject)

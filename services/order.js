@@ -17,11 +17,7 @@ const createOrder = async (req, res) => {
   res.json(await Order.create(req.body));
 };
 const updateOrder = async (req, res) => {
-  const order = req.body;
-  const update = {
-    customer: order.customer,
-    products: order.products,
-  };
+  const {create_date, __v, _id, ...update} = req.body;
   res.json(await Order.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 const deleteOrder = async (req, res) => {

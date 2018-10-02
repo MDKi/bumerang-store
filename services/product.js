@@ -18,13 +18,8 @@ const createProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  let product = req.body;
-  const update = {
-    name: product.name
-  }
-
-  product = await Product.findOneAndUpdate({ _id: req.params._id }, update, { new: true });
-  res.json(product);
+  const {create_date, __v, _id, ...update} = req.body;
+  res.json(await Product.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 
 const removeProduct = async (req, res) => {

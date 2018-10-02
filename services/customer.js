@@ -27,23 +27,15 @@ const getCustomerByID = async (req, res) => {
 };
 
 const createIndividual = async (req, res) => {
-  const customer = await Individual.create(req.body);
-  res.json(customer);
+  res.json(await Individual.create(req.body));
 };
 const createOrganization = async (req, res) => {
-  const customer = await Organization.create(req.body);
-  res.json(customer);
+  res.json(await Organization.create(req.body));
 };
 
 const updateCustomer = async (req, res) => {
-  let customer = req.body;
-  // TO-DO
-  const update = {
-    email: customer.email,
-  }
-
-  customer = await Customer.findOneAndUpdate({ _id: req.params._id }, update, { new: true });
-  res.json(customer);
+  const {create_date, __v, _id, ...update} = req.body;
+  res.json(await Customer.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 
 const deleteCustomer = async (req, res) => {
