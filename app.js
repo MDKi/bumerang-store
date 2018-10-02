@@ -3,8 +3,9 @@ const app = express();
 
 app.use(express.json());
 
-const products = require("./routes/products");
-const customers = require("./routes/customers");
+const products = require("./routes/products.js");
+const customers = require("./routes/customers.js");
+const orders = require("./routes/orders.js");
 
 app.get('/api', (req, res) => {
   res.send('Working! 😊');
@@ -12,6 +13,7 @@ app.get('/api', (req, res) => {
 
 app.use("/api/products", products);
 app.use("/api/customers", customers);
+app.use("/api/orders", orders);
 
 // Error handler
 app.use((error, req, res, next) => {

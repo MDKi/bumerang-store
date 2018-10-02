@@ -22,8 +22,19 @@ describe("/api/orders/", () => {
     const response = await request(app)
       .post(`${url}`)
       .send({
-        customer: "mockCustomerID",
-        products: ["mockProductID0", "mockProductID1"],
+        customer: "5bb3e1c861709f2f03d18aa4",
+        products: [
+          {
+            product: "5bb3e1d561709f2f03d18aa5",
+            quantity: 3,
+            price: 13.5,
+          },
+          {
+            product: "5bb3e1de61709f2f03d18aa6",
+            quantity: 2,
+            price: 33.43,
+          },
+        ],
       })
       .expect(200);
 
@@ -31,8 +42,19 @@ describe("/api/orders/", () => {
 
       expect(testOrder._id).toBeDefined();
       expect(testOrder).toMatchObject({
-        // customer: {id_: "mockCustomerID"},
-        // products: ["mockProductID0", "mockProductID1"],
+        customer: "5bb3e1c861709f2f03d18aa4",
+        products: [
+          {
+            product: "5bb3e1d561709f2f03d18aa5",
+            quantity: 3,
+            price: 13.5,
+          },
+          {
+            product: "5bb3e1de61709f2f03d18aa6",
+            quantity: 2,
+            price: 33.43,
+          },
+        ],
         __v: 0,
       });
       newDateCheck(testOrder.create_date);
