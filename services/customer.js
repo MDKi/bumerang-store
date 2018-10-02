@@ -4,15 +4,13 @@ const getCustomers = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
   const query = req.query.isActive ? { isActive: true } : {};
-  const customers = await Customer.find(query, {}, { skip, limit })
-  res.json(customers);
+  res.json(await Customer.find(query, {}, { skip, limit }));
 };
 const getIndividuals = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
   const query = req.query.isActive ? { isActive: true } : {};
-  const customers = await Individual.find(query, {}, { skip, limit })
-  res.json(customers);
+  res.json(await Individual.find(query, {}, { skip, limit }));
 };
 const getOrganizations = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
@@ -22,8 +20,7 @@ const getOrganizations = async (req, res) => {
   res.json(customers);
 };
 const getCustomerByID = async (req, res) => {
-  const customer = await Customer.findById(req.params._id);
-  res.json(customer);
+  res.json(await Customer.findById(req.params._id));
 };
 
 const createIndividual = async (req, res) => {
@@ -41,12 +38,10 @@ const updateCustomer = async (req, res) => {
 const deleteCustomer = async (req, res) => {
   // Eventually needs to be changed to #orders related to this customer === 0
   if (false) {
-    const customer = await Customer.remove({ _id: req.params._id });
-    res.json(customer);
+    res.json(await Customer.remove({ _id: req.params._id }));
   }
   else {
-    const customer = await Customer.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, { new: true });
-    res.json(customer);
+    res.json(await Customer.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, { new: true }));
   }
 };
 
