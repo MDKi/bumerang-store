@@ -1,4 +1,5 @@
 const Product = require("../models/product.js");
+const Order = require("../models/order.js");
 
 const getProducts = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
@@ -15,19 +16,25 @@ const createProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  const {create_date, __v, _id, ...update} = req.body;
+  const { create_date, __v, _id, ...update } = req.body;
   res.json(await Product.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 
 const removeProduct = async (req, res) => {
-  // Eventually needs to be changed to #orders related to this product === 0
-  if (false) {
-    res.json(await Product.remove({ _id: req.params._id }));
+  _id = req.params._id;
+  safe = await isSafeToDelete(_id);
+  if (safe) {
+    res.json(await Product.remove({ _id }));
   }
   else {
-    res.json(await Product.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, { new: true }));
+    res.json(await Product.findOneAndUpdate({ _id }, { isActive: false }, { new: true }));
   }
 };
+
+const isSafeToDelete = async id => {
+  const relatedOrders = await Order.find({ 'products.product': id });
+  return relatedOrders.length == 0 ? true : false;
+}
 
 module.exports = {
   getProducts,

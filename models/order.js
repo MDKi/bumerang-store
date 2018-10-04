@@ -30,6 +30,11 @@ const orderSchema = mongoose.Schema({
     type: [productOrderSchema],
     required: true,
   },
+  isDuplicated: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
   create_date: {
     type: Date,
     default: Date.now
