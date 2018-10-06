@@ -23,7 +23,7 @@ const updateProduct = async (req, res) => {
 const removeProduct = async (req, res) => {
   const _id = req.params._id;
 
-  if (await (async id => (await Order.find({ 'products.product': id })).length === 0)(_id)) {
+  if ((await Order.find({ 'products.product': _id })).length === 0) {
     res.json(await Product.remove({ _id }));
   }
   else {

@@ -8,7 +8,7 @@ const {
   createProduct,
   updateProduct,
   removeProduct,
-} = require("../services/product.js");
+} = require("../controllers/product.js");
 
 router.get("/", catchError(getProducts, "Couldn't get products!", "GET /products"));
 router.get("/:_id", catchError(getProductByID, "Couldnt't get a product!", "GET /products/:_id"));

@@ -8,7 +8,7 @@ const {
   createOrder,
   updateOrder,
   deleteOrder,
-} = require("../services/order.js");
+} = require("../controllers/order.js");
 
 router.get("/", catchError(getOrders, "Couldn't get orders!", "GET /orders"));
 router.get("/:_id", catchError(getOrderByID, "Couldnt't get an order!", "GET /orders/:_id"));

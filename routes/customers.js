@@ -11,7 +11,7 @@ const {
   createOrganization,
   updateCustomer,
   deleteCustomer,
-} = require("../services/customer.js");
+} = require("../controllers/customer.js");
 
 router.get("/", catchError(getCustomers, "Couldn't get customers!", "GET /customers"));
 router.get("/individuals", catchError(getIndividuals, "Couldn't get individuals!", "GET /customers/"));
