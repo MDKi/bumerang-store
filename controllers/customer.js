@@ -1,5 +1,9 @@
 const { Customer, Individual, Organization } = require("../models/customer");
+const getAll = require("../helpers/controllers/getAll.js");
 
+// const getCustomers = getAll(Customer, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
+// const getIndividuals = getAll(Individual, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
+// const getOrganizations = getAll(Organization, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
 const getCustomers = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
@@ -31,7 +35,7 @@ const createOrganization = async (req, res) => {
 };
 
 const updateCustomer = async (req, res) => {
-  const {create_date, __v, _id, ...update} = req.body;
+  const { create_date, __v, _id, ...update } = req.body;
   res.json(await Customer.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 

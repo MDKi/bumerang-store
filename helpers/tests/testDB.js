@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const config = require("../config");
+const config = require("../../config");
 
 // config.url is giving me undefined idk why
 const url = config.url || "mongodb://localhost:27017/bumerang-store-test";

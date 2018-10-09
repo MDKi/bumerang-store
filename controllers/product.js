@@ -1,6 +1,9 @@
 const Product = require("../models/product.js");
 const Order = require("../models/order.js");
 
+const getAll = require("../helpers/controllers/getAll.js");
+
+// const getProducts = getAll(Product, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
 const getProducts = async (req, res) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;

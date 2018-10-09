@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require("../app.js");
-const { connectDB, disconnectDB } = require("../helpers/testDB.js");
-const newDateCheck = require("../helpers/newDateCheck.js");
+const { connectDB, disconnectDB } = require("../helpers/tests/testDB.js");
+const newDateCheck = require("../helpers/tests/newDateCheck.js");
 
 describe("/api/orders/", () => {
   beforeAll(() => {

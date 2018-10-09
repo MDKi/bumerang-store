@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require("../app.js");
-const { connectDB, disconnectDB } = require("../helpers/testDB.js");
-const newDateCheck = require("../helpers/newDateCheck.js");
+const { connectDB, disconnectDB } = require("../helpers/tests/testDB.js");
+const newDateCheck = require("../helpers/tests/newDateCheck.js");
 
 describe("/api/products", () => {
   beforeAll(() => {
@@ -65,13 +65,16 @@ describe("/api/products", () => {
 
     // This is the expected behavior for now;
     // The moment I start to implement remove I should expect(response.body).toMatchObject({"n":1,"ok":1});
+    // Now is the moment
     expect(response.body).toMatchObject({
-      _id: testProduct._id,
-      name: "modifiedTestProduct",
+      // _id: testProduct._id,
+      // name: "modifiedTestProduct",
 
-      __v: testProduct.__v,
-      isActive: false,
-      create_date: testProduct.create_date
+      // __v: testProduct.__v,
+      // isActive: false,
+      // create_date: testProduct.create_date
+
+      n: 1, ok: 1,
     })
   });
 });
