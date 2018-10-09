@@ -2,17 +2,17 @@ const Order = require('../models/order.js');
 
 const getAll = require("../helpers/controllers/getAll.js");
 
-// const getOrders = getAll(Order, (obj, req, res) => { query = req.query || {} }, i => i.populate('customer').populate('products.product'));
-const getOrders = async (req, res) => {
-  const [limit, page] = [5000, req.query.page];
-  const skip = page * limit;
-  const query = req.query ? req.query : {};
-  const orders = await Order
-    .find(query, {}, { skip, limit })
-    .populate('customer') // !!!
-    .populate('products.product'); // !!!
-  res.json(orders);
-};
+const getOrders = getAll(Order, false, i => i.populate('customer').populate('products.product'));
+// const getOrders = async (req, res) => {
+//   const [limit, page] = [5000, req.query.page];
+//   const skip = page * limit;
+//   const query = req.query ? req.query : {};
+//   const orders = await Order
+//     .find(query, {}, { skip, limit })
+//     .populate('customer') // !!!
+//     .populate('products.product'); // !!!
+//   res.json(orders);
+// };
 const getOrderByID = async (req, res) => {
   res.json(await Order.findById(req.params._id));
 };

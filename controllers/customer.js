@@ -1,28 +1,28 @@
 const { Customer, Individual, Organization } = require("../models/customer");
 const getAll = require("../helpers/controllers/getAll.js");
 
-// const getCustomers = getAll(Customer, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
-// const getIndividuals = getAll(Individual, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
-// const getOrganizations = getAll(Organization, (obj, req, res) => { query = req.query.isActive ? { isActive: true } : {} });
-const getCustomers = async (req, res) => {
-  const [limit, page] = [5000, req.query.page];
-  const skip = page * limit;
-  const query = req.query.isActive ? { isActive: true } : {};
-  res.json(await Customer.find(query, {}, { skip, limit }));
-};
-const getIndividuals = async (req, res) => {
-  const [limit, page] = [5000, req.query.page];
-  const skip = page * limit;
-  const query = req.query.isActive ? { isActive: true } : {};
-  res.json(await Individual.find(query, {}, { skip, limit }));
-};
-const getOrganizations = async (req, res) => {
-  const [limit, page] = [5000, req.query.page];
-  const skip = page * limit;
-  const query = req.query.isActive ? { isActive: true } : {};
-  const customers = await Organization.find(query, {}, { skip, limit })
-  res.json(customers);
-};
+const getCustomers = getAll(Customer);
+const getIndividuals = getAll(Individual);
+const getOrganizations = getAll(Organization);
+// const getCustomers = async (req, res) => {
+//   const [limit, page] = [5000, req.query.page];
+//   const skip = page * limit;
+//   const query = req.query.isActive ? { isActive: true } : {};
+//   res.json(await Customer.find(query, {}, { skip, limit }));
+// };
+// const getIndividuals = async (req, res) => {
+//   const [limit, page] = [5000, req.query.page];
+//   const skip = page * limit;
+//   const query = req.query.isActive ? { isActive: true } : {};
+//   res.json(await Individual.find(query, {}, { skip, limit }));
+// };
+// const getOrganizations = async (req, res) => {
+//   const [limit, page] = [5000, req.query.page];
+//   const skip = page * limit;
+//   const query = req.query.isActive ? { isActive: true } : {};
+//   const customers = await Organization.find(query, {}, { skip, limit })
+//   res.json(customers);
+// };
 const getCustomerByID = async (req, res) => {
   res.json(await Customer.findById(req.params._id));
 };
