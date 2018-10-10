@@ -188,32 +188,32 @@ describe("/api/customers", () => {
   describe("can get a customer", async () => {
     test("can get an individual customer", async () => {
       const response = await request(app)
-      .get(`${url}${testCustomer.individual._id}`)
-      .expect(200);
+        .get(`${url}${testCustomer.individual._id}`)
+        .expect(200);
       expect(response.body).toEqual(testCustomer.individual);
     });
     test("can get an organization customer", async () => {
       const response = await request(app)
-      .get(`${url}${testCustomer.organization._id}`)
-      .expect(200);
+        .get(`${url}${testCustomer.organization._id}`)
+        .expect(200);
       expect(response.body).toEqual(testCustomer.organization);
     });
   });
 
-  // To do, both the test and the logic
+  // To do
   describe("can update a single customer", () => {
     test("can updante an individual customer", async () => {
       const response = await request(app)
-      .put(`${url}${testCustomer.individual._id}`)
-      .send({})
-      .expect(200);
+        .put(`${url}${testCustomer.individual._id}`)
+        .send({})
+        .expect(200);
       expect(response.body).toMatchObject({});
     });
     test("can updante an organization customer", async () => {
       const response = await request(app)
-      .put(`${url}${testCustomer.organization._id}`)
-      .send({})
-      .expect(200);
+        .put(`${url}${testCustomer.organization._id}`)
+        .send({})
+        .expect(200);
       expect(response.body).toMatchObject({});
     });
   })
@@ -221,22 +221,24 @@ describe("/api/customers", () => {
   describe("can delete a customer", () => {
     test("can delete an individual", async () => {
       const response = await request(app)
-      .delete(`${url}${testCustomer.individual._id}`)
-      .expect(200);
+        .delete(`${url}${testCustomer.individual._id}`)
+        .expect(200);
 
       expect(response.body).toMatchObject({
-        _id: testCustomer.individual._id,
-        isActive: false,
+        // _id: testCustomer.individual._id,
+        // isActive: false,
+        n: 1, ok: 1,
       });
     })
     test("can delete an organization", async () => {
       const response = await request(app)
-      .delete(`/api/customers/${testCustomer.organization._id}`)
-      .expect(200);
+        .delete(`/api/customers/${testCustomer.organization._id}`)
+        .expect(200);
 
       expect(response.body).toMatchObject({
-        _id: testCustomer.organization._id,
-        isActive: false,
+        // _id: testCustomer.organization._id,
+        // isActive: false,
+        n: 1, ok: 1,
       });
     });
 

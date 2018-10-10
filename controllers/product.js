@@ -3,13 +3,9 @@ const Order = require("../models/order.js");
 
 const getAll = require("../helpers/controllers/getAll.js");
 
-const getProducts = getAll(Product);
-// const getProducts = async (req, res) => {
-//   const [limit, page] = [5000, req.query.page];
-//   const skip = page * limit;
-//   const query = req.query.isActive ? { isActive: true } : {};
-//   res.json(await Product.find(query, {}, { skip, limit }));
-// };
+const findArgs = (req, res) => ({ query: req.query.isActive ? { isActive: true } : {} });
+
+const getProducts = getAll(Product, findArgs);
 const getProductByID = async (req, res) => {
   res.json(await Product.findById(req.params._id));
 };

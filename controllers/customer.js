@@ -1,28 +1,13 @@
-const { Customer, Individual, Organization } = require("../models/customer");
+const { Customer, Individual, Organization } = require("../models/customer.js");
+const Order = require("../models/order.js");
+
 const getAll = require("../helpers/controllers/getAll.js");
 
-const getCustomers = getAll(Customer);
-const getIndividuals = getAll(Individual);
-const getOrganizations = getAll(Organization);
-// const getCustomers = async (req, res) => {
-//   const [limit, page] = [5000, req.query.page];
-//   const skip = page * limit;
-//   const query = req.query.isActive ? { isActive: true } : {};
-//   res.json(await Customer.find(query, {}, { skip, limit }));
-// };
-// const getIndividuals = async (req, res) => {
-//   const [limit, page] = [5000, req.query.page];
-//   const skip = page * limit;
-//   const query = req.query.isActive ? { isActive: true } : {};
-//   res.json(await Individual.find(query, {}, { skip, limit }));
-// };
-// const getOrganizations = async (req, res) => {
-//   const [limit, page] = [5000, req.query.page];
-//   const skip = page * limit;
-//   const query = req.query.isActive ? { isActive: true } : {};
-//   const customers = await Organization.find(query, {}, { skip, limit })
-//   res.json(customers);
-// };
+const findArgs = (req, res) => ({ query: req.query.isActive ? { isActive: true } : {} });
+
+const getCustomers = getAll(Customer, findArgs);
+const getIndividuals = getAll(Individual, findArgs);
+const getOrganizations = getAll(Organization, findArgs);
 const getCustomerByID = async (req, res) => {
   res.json(await Customer.findById(req.params._id));
 };
@@ -40,12 +25,12 @@ const updateCustomer = async (req, res) => {
 };
 
 const deleteCustomer = async (req, res) => {
-  // Eventually needs to be changed to #orders related to this customer === 0
-  if (false) {
-    res.json(await Customer.remove({ _id: req.params._id }));
+  const _id = req.params._id;
+  if ((await Order.find({ customer: _id })).length === 0) {
+    res.json(await Customer.remove({ _id }));
   }
   else {
-    res.json(await Customer.findOneAndUpdate({ _id: req.params._id }, { isActive: false }, { new: true }));
+    res.json(await Customer.findOneAndUpdate({ _id }, { isActive: false }, { new: true }));
   }
 };
 

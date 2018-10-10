@@ -63,18 +63,9 @@ describe("/api/products", () => {
       .delete(`${url}${testProduct._id}`)
       .expect(200);
 
-    // This is the expected behavior for now;
-    // The moment I start to implement remove I should expect(response.body).toMatchObject({"n":1,"ok":1});
-    // Now is the moment
     expect(response.body).toMatchObject({
-      // _id: testProduct._id,
-      // name: "modifiedTestProduct",
-
-      // __v: testProduct.__v,
-      // isActive: false,
-      // create_date: testProduct.create_date
-
-      n: 1, ok: 1,
+      n: 1,
+      ok: 1,
     })
   });
 });
