@@ -3,35 +3,35 @@ const app = require("../app.js");
 const { connectDB, disconnectDB } = require("../helpers/tests/testDB.js");
 const newDateCheck = require("../helpers/tests/newDateCheck.js");
 
-describe("/api/customers", () => {
+describe("/api/people", () => {
   beforeAll(() => {
     connectDB();
   });
   afterAll(() => {
     disconnectDB();
   });
-  const url = "/api/customers/";
-  let testCustomer = {};
+  const url = "/api/people/";
+  let testPerson = {};
 
-  describe("can list customers", () => {
-    test("can list ALL customers", async () => {
+  describe("can list people", () => {
+    test("can list ALL people", async () => {
       await request(app)
         .get(url)
         .expect(200);
     });
-    test("can list individual customers", async () => {
+    test("can list individual people", async () => {
       await request(app)
         .get(`${url}/individuals/`)
         .expect(200);
     });
-    test("can list organization customers", async () => {
+    test("can list organization people", async () => {
       await request(app)
         .get(`${url}/organizations/`)
         .expect(200);
     });
   });
 
-  describe("can post customers", () => {
+  describe("can post people", () => {
     test("can post an individual", async () => {
       expect.assertions(7);
       const response = await request(app)
@@ -67,10 +67,10 @@ describe("/api/customers", () => {
         })
         .expect(200);
 
-      testCustomer.individual = response.body;
+      testPerson.individual = response.body;
 
-      expect(testCustomer.individual._id).toBeDefined();
-      expect(testCustomer.individual).toMatchObject({
+      expect(testPerson.individual._id).toBeDefined();
+      expect(testPerson.individual).toMatchObject({
         email: "individual@email.com",
         address: [{
           street: "individualSt",
@@ -99,12 +99,12 @@ describe("/api/customers", () => {
       });
 
 
-      newDateCheck(testCustomer.individual.create_date);
+      newDateCheck(testPerson.individual.create_date);
 
-      expect(testCustomer.individual.CUIT).not.toBeDefined();
-      expect(testCustomer.individual.fantasyName).not.toBeDefined();
+      expect(testPerson.individual.CUIT).not.toBeDefined();
+      expect(testPerson.individual.fantasyName).not.toBeDefined();
 
-      expect(testCustomer.individual.garbageAtr).not.toBeDefined();
+      expect(testPerson.individual.garbageAtr).not.toBeDefined();
     });
 
     test("can post an organization", async () => {
@@ -144,10 +144,10 @@ describe("/api/customers", () => {
         })
         .expect(200);
 
-      testCustomer.organization = response.body;
+      testPerson.organization = response.body;
 
-      expect(testCustomer.organization._id).toBeDefined();
-      expect(testCustomer.organization).toMatchObject({
+      expect(testPerson.organization._id).toBeDefined();
+      expect(testPerson.organization).toMatchObject({
         email: "org@email.com",
         address: [{
           street: "orgSt",
@@ -175,68 +175,68 @@ describe("/api/customers", () => {
         isActive: true,
       });
 
-      newDateCheck(testCustomer.organization.create_date);
+      newDateCheck(testPerson.organization.create_date);
 
-      expect(testCustomer.organization.name).not.toBeDefined();
-      expect(testCustomer.organization.lastName).not.toBeDefined();
-      expect(testCustomer.organization.DNI).not.toBeDefined();
+      expect(testPerson.organization.name).not.toBeDefined();
+      expect(testPerson.organization.lastName).not.toBeDefined();
+      expect(testPerson.organization.DNI).not.toBeDefined();
 
-      expect(testCustomer.organization.garbageAtr).not.toBeDefined();
+      expect(testPerson.organization.garbageAtr).not.toBeDefined();
     });
   });
 
-  describe("can get a customer", async () => {
-    test("can get an individual customer", async () => {
+  describe("can get a person", async () => {
+    test("can get an individual person", async () => {
       const response = await request(app)
-        .get(`${url}${testCustomer.individual._id}`)
+        .get(`${url}${testPerson.individual._id}`)
         .expect(200);
-      expect(response.body).toEqual(testCustomer.individual);
+      expect(response.body).toEqual(testPerson.individual);
     });
-    test("can get an organization customer", async () => {
+    test("can get an organization person", async () => {
       const response = await request(app)
-        .get(`${url}${testCustomer.organization._id}`)
+        .get(`${url}${testPerson.organization._id}`)
         .expect(200);
-      expect(response.body).toEqual(testCustomer.organization);
+      expect(response.body).toEqual(testPerson.organization);
     });
   });
 
   // To do
-  describe("can update a single customer", () => {
-    test("can updante an individual customer", async () => {
+  describe("can update a single person", () => {
+    test("can updante an individual person", async () => {
       const response = await request(app)
-        .put(`${url}${testCustomer.individual._id}`)
+        .put(`${url}${testPerson.individual._id}`)
         .send({})
         .expect(200);
       expect(response.body).toMatchObject({});
     });
-    test("can updante an organization customer", async () => {
+    test("can updante an organization person", async () => {
       const response = await request(app)
-        .put(`${url}${testCustomer.organization._id}`)
+        .put(`${url}${testPerson.organization._id}`)
         .send({})
         .expect(200);
       expect(response.body).toMatchObject({});
     });
   })
 
-  describe("can delete a customer", () => {
+  describe("can delete a person", () => {
     test("can delete an individual", async () => {
       const response = await request(app)
-        .delete(`${url}${testCustomer.individual._id}`)
+        .delete(`${url}${testPerson.individual._id}`)
         .expect(200);
 
       expect(response.body).toMatchObject({
-        // _id: testCustomer.individual._id,
+        // _id: testPerson.individual._id,
         // isActive: false,
         n: 1, ok: 1,
       });
     })
     test("can delete an organization", async () => {
       const response = await request(app)
-        .delete(`/api/customers/${testCustomer.organization._id}`)
+        .delete(`/api/people/${testPerson.organization._id}`)
         .expect(200);
 
       expect(response.body).toMatchObject({
-        // _id: testCustomer.organization._id,
+        // _id: testPerson.organization._id,
         // isActive: false,
         n: 1, ok: 1,
       });

@@ -55,7 +55,7 @@ const phoneSchema = mongoose.Schema({
 });
 
 const options = { discriminatorKey: 'kind' };
-const customerSchema = mongoose.Schema({
+const personSchema = mongoose.Schema({
   email: {
     type: String,
   },
@@ -97,12 +97,12 @@ const organizationSchema = mongoose.Schema({
   },
 }, options);
 
-const Customer = mongoose.model('Customer', customerSchema);
-const Individual = Customer.discriminator('Individual', individualSchema);
-const Organization = Customer.discriminator('Organization', organizationSchema);
+const Person = mongoose.model('Person', personSchema);
+const Individual = Person.discriminator('Individual', individualSchema);
+const Organization = Person.discriminator('Organization', organizationSchema);
 
 module.exports = {
-  Customer,
+  Person,
   Individual,
   Organization,
 };

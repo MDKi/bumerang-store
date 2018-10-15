@@ -22,7 +22,7 @@ describe("/api/orders/", () => {
     const response = await request(app)
       .post(`${url}`)
       .send({
-        customer: "5bb3e1c861709f2f03d18aa4",
+        person: "5bb3e1c861709f2f03d18aa4",
         products: [
           {
             product: "5bb3e1d561709f2f03d18aa5",
@@ -42,7 +42,7 @@ describe("/api/orders/", () => {
 
       expect(testOrder._id).toBeDefined();
       expect(testOrder).toMatchObject({
-        customer: "5bb3e1c861709f2f03d18aa4",
+        person: "5bb3e1c861709f2f03d18aa4",
         products: [
           {
             product: "5bb3e1d561709f2f03d18aa5",
@@ -59,7 +59,7 @@ describe("/api/orders/", () => {
       });
       newDateCheck(testOrder.create_date);
 
-      // expect(testOrder.customer).toMatchObject({})
+      // expect(testOrder.person).toMatchObject({})
   });
   test("can get an order", async () => {
     const response = await request(app)

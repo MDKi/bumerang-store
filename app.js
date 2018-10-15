@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 const products = require("./routes/products.js");
-const customers = require("./routes/customers.js");
+const people = require("./routes/people.js");
 const orders = require("./routes/orders.js");
 
 app.get('/api', (req, res) => {
@@ -12,7 +12,7 @@ app.get('/api', (req, res) => {
 });
 
 app.use("/api/products", products);
-app.use("/api/customers", customers);
+app.use("/api/people", people);
 app.use("/api/orders", orders);
 
 // Error handler

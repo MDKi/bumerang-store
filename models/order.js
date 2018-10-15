@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Product = require("./product.js");
-const Customer = require("./customer.js");
+const Person = require("./person.js");
 
 const productOrderSchema = mongoose.Schema({
   product: {
@@ -21,9 +21,9 @@ const productOrderSchema = mongoose.Schema({
 
 const orderSchema = mongoose.Schema({
 
-  customer: {
+  person: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Customer,
+    ref: Person,
     required: false,
   },
   products: {

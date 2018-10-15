@@ -3,7 +3,7 @@ const Order = require('../models/order.js');
 const getAll = require("../helpers/controllers/getAll.js");
 
 const findArgs = (req, res) => ({query: req.query || {}});
-const onceFound = orders => orders.populate('customer').populate('products.product');
+const onceFound = orders => orders.populate('person').populate('products.product');
 
 const getOrders = getAll(Order, findArgs, onceFound);
 const getOrderByID = async (req, res) => {
