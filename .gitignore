@@ -1,6 +1,9 @@
 # Dependencies
 /node_modules
 
+# Dist
+/dist
+
 # macOS
 .DS_Store
 
