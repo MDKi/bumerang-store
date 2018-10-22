@@ -19,8 +19,30 @@ const productOrderSchema = mongoose.Schema({
   },
 });
 
-const orderSchema = mongoose.Schema({
+const documentKindSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  balance: {
+    type: String,
+    required: true,
+    enum: ["positive", "negative"],
+  },
+});
 
+const commercialDocSchema = mongoose.Schema({
+  printedDate: {
+    type: Date,
+    required: true,
+  },
+  docKind: {
+    type: documentKindSchema,
+    required: true,
+  },
+});
+
+const orderSchema = mongoose.Schema({
   person: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Person,
@@ -30,10 +52,13 @@ const orderSchema = mongoose.Schema({
     type: [productOrderSchema],
     required: true,
   },
-  isDuplicated: {
+  isSale: {
     type: Boolean,
     required: true,
     default: true,
+  },
+  commercialDocs: {
+    type: [commercialDocSchema],
   },
   create_date: {
     type: Date,
