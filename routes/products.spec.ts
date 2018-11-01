@@ -1,7 +1,7 @@
-const request = require('supertest');
-const app = require("../app.js");
-const { connectDB, disconnectDB } = require("../helpers/tests/testDB.js");
-const newDateCheck = require("../helpers/tests/newDateCheck.js");
+import request from 'supertest';
+import app from "../app";
+import { connectDB, disconnectDB } from "../helpers/tests/testDB";
+import newDateCheck from "../helpers/tests/newDateCheck";
 
 describe("/api/products", () => {
   beforeAll(() => {

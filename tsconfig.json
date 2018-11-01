@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es2018",
@@ -11,4 +11,7 @@
     "baseUrl": ".",
     "lib": ["es2015"]
   },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }

@@ -1,30 +1,33 @@
-const { Person, Individual, Organization } = require("../models/person.js");
-const Order = require("../models/order.js");
+import {Request, Response} from 'express';
 
-const getAll = require("../helpers/controllers/getAll.js");
+import { Person, Individual, Organization } from "../models/person";
+import Order from "../models/order";
 
-const findArgs = (req, res) => ({ query: req.query.isActive ? { isActive: true } : {} });
+import getAll from "../helpers/controllers/getAll";
+
+const findArgs = (req: Request, res: Response) => ({ query: req.query.isActive ? { isActive: true } : {} ,
+projection: {}, options: {}});
 
 const getPeople = getAll(Person, findArgs);
 const getIndividuals = getAll(Individual, findArgs);
 const getOrganizations = getAll(Organization, findArgs);
-const getPersonByID = async (req, res) => {
+const getPersonByID = async (req: Request, res: Response) => {
   res.json(await Person.findById(req.params._id));
 };
 
-const createIndividual = async (req, res) => {
+const createIndividual = async (req: Request, res: Response) => {
   res.json(await Individual.create(req.body));
 };
-const createOrganization = async (req, res) => {
+const createOrganization = async (req: Request, res: Response) => {
   res.json(await Organization.create(req.body));
 };
 
-const updatePerson = async (req, res) => {
+const updatePerson = async (req: Request, res: Response) => {
   const { create_date, __v, _id, ...update } = req.body;
   res.json(await Person.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 
-const deletePerson = async (req, res) => {
+const deletePerson = async (req: Request, res: Response) => {
   const _id = req.params._id;
   if ((await Order.find({ person: _id })).length === 0) {
     res.json(await Person.remove({ _id }));
@@ -34,7 +37,7 @@ const deletePerson = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getPeople,
   getIndividuals,
   getOrganizations,

@@ -1,25 +1,28 @@
-const Product = require("../models/product.js");
-const Order = require("../models/order.js");
+import {Request, Response} from 'express';
 
-const getAll = require("../helpers/controllers/getAll.js");
+import Product from "../models/product";
+import Order from "../models/order";
 
-const findArgs = (req, res) => ({ query: req.query.isActive ? { isActive: true } : {} });
+import getAll from "../helpers/controllers/getAll";
+
+const findArgs = (req: Request, res: Response) => ({ query: req.query.isActive ? { isActive: true } : {} ,
+projection: {}, options: {}});
 
 const getProducts = getAll(Product, findArgs);
-const getProductByID = async (req, res) => {
+const getProductByID = async (req: Request, res: Response) => {
   res.json(await Product.findById(req.params._id));
 };
 
-const createProduct = async (req, res) => {
+const createProduct = async (req: Request, res: Response) => {
   res.json(await Product.create(req.body));
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req: Request, res: Response) => {
   const { create_date, __v, _id, ...update } = req.body;
   res.json(await Product.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
 };
 
-const removeProduct = async (req, res) => {
+const removeProduct = async (req: Request, res: Response) => {
   const _id = req.params._id;
 
   if ((await Order.find({ 'products.product': _id })).length === 0) {
@@ -30,7 +33,7 @@ const removeProduct = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getProducts,
   getProductByID,
   createProduct,

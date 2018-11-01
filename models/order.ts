@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Product = require("./product.js");
-const Person = require("./person.js");
+import Product from "./product";
+import { Person } from "./person";
 
-const productOrderSchema = mongoose.Schema({
+const productOrderSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Product,
@@ -19,7 +19,7 @@ const productOrderSchema = mongoose.Schema({
   },
 });
 
-const documentKindSchema = mongoose.Schema({
+const documentKindSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -31,7 +31,7 @@ const documentKindSchema = mongoose.Schema({
   },
 });
 
-const commercialDocSchema = mongoose.Schema({
+const commercialDocSchema = new mongoose.Schema({
   printedDate: {
     type: Date,
     required: true,
@@ -42,7 +42,7 @@ const commercialDocSchema = mongoose.Schema({
   },
 });
 
-const orderSchema = mongoose.Schema({
+const orderSchema = new mongoose.Schema({
   person: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Person,
@@ -66,4 +66,4 @@ const orderSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+export default mongoose.model("Order", orderSchema);

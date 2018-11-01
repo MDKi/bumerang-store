@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const neighborhoodSchema = mongoose.Schema({
+const neighborhoodSchema = new mongoose.Schema({
   neighborhood: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ const neighborhoodSchema = mongoose.Schema({
   },
 });
 
-const addressSchema = mongoose.Schema({
+const addressSchema = new mongoose.Schema({
   street: {
     type: String,
   },
@@ -43,7 +43,7 @@ const addressSchema = mongoose.Schema({
   },
 });
 
-const phoneSchema = mongoose.Schema({
+const phoneSchema = new mongoose.Schema({
   areaCode: {
     type: String,
     default: "2622",
@@ -55,7 +55,7 @@ const phoneSchema = mongoose.Schema({
 });
 
 const options = { discriminatorKey: 'kind' };
-const personSchema = mongoose.Schema({
+const personSchema = new mongoose.Schema({
   email: {
     type: String,
   },
@@ -77,7 +77,7 @@ const personSchema = mongoose.Schema({
   }
 }, options);
 
-const individualSchema = mongoose.Schema({
+const individualSchema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -88,7 +88,7 @@ const individualSchema = mongoose.Schema({
     type: String,
   },
 }, options);
-const organizationSchema = mongoose.Schema({
+const organizationSchema = new mongoose.Schema({
   CUIT: {
     type: String,
   },
@@ -101,7 +101,7 @@ const Person = mongoose.model('Person', personSchema);
 const Individual = Person.discriminator('Individual', individualSchema);
 const Organization = Person.discriminator('Organization', organizationSchema);
 
-module.exports = {
+export {
   Person,
   Individual,
   Organization,

@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const catchError = require("../middleware/catchError.js");
+import catchError from "../middleware/catchError";
 
-const {
+import {
   getPeople,
   getIndividuals,
   getOrganizations,
@@ -11,7 +11,7 @@ const {
   createOrganization,
   updatePerson,
   deletePerson,
-} = require("../controllers/person.js");
+} from "../controllers/person";
 
 router.get("/", catchError(getPeople, "Couldn't get people!", "GET /people"));
 router.get("/individuals", catchError(getIndividuals, "Couldn't get individuals!", "GET /people/"));
@@ -25,4 +25,4 @@ router.put("/:_id", catchError(updatePerson, "Couldn't update a person!", "PUT /
 
 router.delete("/:_id", catchError(deletePerson, "Couldn't remove a person!", "DELETE /people/:_id"));
 
-module.exports = router;
+export default router;

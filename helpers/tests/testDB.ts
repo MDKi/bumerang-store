@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
-const config = require("../../config");
+import mongoose from "mongoose";
+import config from "../../config";
 
-// config.url is giving me undefined idk why
-const url = config.url || "mongodb://localhost:27017/bumerang-store-test";
+const url: string = config.db;
 
 const dropDB = async () => {
   await mongoose.connection.db.dropDatabase();
@@ -16,7 +15,7 @@ const disconnectDB = async () => {
   await mongoose.disconnect();
 }
 
-module.exports = {
+export {
   connectDB,
-  disconnectDB
+  disconnectDB,
 }

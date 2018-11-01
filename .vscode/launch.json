@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Nodemon",
-      "program": "${workspaceFolder}/index.js",
+      "program": "${workspaceFolder}/dist/index.js",
 
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/nodemon",
       "restart": true,

@@ -13,4 +13,4 @@ const catchErrors = (middleware, general, route) => {
   }
 };
 
-module.exports = catchErrors;
+export default catchErrors;

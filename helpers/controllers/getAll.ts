@@ -1,7 +1,8 @@
-const defaultFindArgs = (req, res) => ({query: {}, projection: {}, options: {}});
+import { Request, Response } from "express";
+const defaultFindArgs = (req: Request, res: Response) => ({query: {}, projection: {}, options: {}});
 const defaultOnceFound = async items => items;
 
-const getAll = (Model, findArgs = defaultFindArgs, onceFound = defaultOnceFound) => async (req, res) => {
+const getAll = (Model, findArgs = defaultFindArgs, onceFound = defaultOnceFound) => async (req: Request, res: Response) => {
   const [limit, page] = [5000, req.query.page];
   const skip = page * limit;
 
@@ -12,4 +13,4 @@ const getAll = (Model, findArgs = defaultFindArgs, onceFound = defaultOnceFound)
   res.json(items);
 };
 
-module.exports = getAll;
+export default getAll;

@@ -1,17 +1,19 @@
-const request = require('supertest');
-const app = require("../app.js");
-const { connectDB, disconnectDB } = require("../helpers/tests/testDB.js");
-const newDateCheck = require("../helpers/tests/newDateCheck.js");
+import request from 'supertest';
+import app from "../app";
+import Order from "../models/order";
+import { connectDB, disconnectDB } from "../helpers/tests/testDB";
+import newDateCheck from "../helpers/tests/newDateCheck";
 
 describe("/api/orders/", () => {
   beforeAll(() => {
     connectDB();
+    Order.create({});
   });
   afterAll(() => {
     disconnectDB();
   });
   const url = "/api/orders/";
-  let testOrder = {};
+  let testOrder;
 
   test("can list orders", async () => {
     await request(app)
