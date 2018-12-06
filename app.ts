@@ -1,7 +1,15 @@
 import express, { json, Request, Response } from 'express';
 const app = express();
 
+// app.use(express.static(`${__dirname}/../../bumerang-vue`));
 app.use(json());
+
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 import products from "./routes/products";
 import people from "./routes/people";

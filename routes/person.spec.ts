@@ -205,14 +205,14 @@ describe("/api/people", () => {
     test("can updante an individual person", async () => {
       const response = await request(app)
         .put(`${url}${testPerson.individual._id}`)
-        .send({})
+        .send({kind: "Individual"})
         .expect(200);
       expect(response.body).toMatchObject({});
     });
     test("can updante an organization person", async () => {
       const response = await request(app)
         .put(`${url}${testPerson.organization._id}`)
-        .send({})
+        .send({kind: "Organization"})
         .expect(200);
       expect(response.body).toMatchObject({});
     });

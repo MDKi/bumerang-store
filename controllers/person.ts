@@ -1,12 +1,14 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 
 import { Person, Individual, Organization } from "../models/person";
 import Order from "../models/order";
 
 import getAll from "../helpers/controllers/getAll";
 
-const findArgs = (req: Request, res: Response) => ({ query: req.query.isActive ? { isActive: true } : {} ,
-projection: {}, options: {}});
+const findArgs = (req: Request, res: Response) => ({
+  query: req.query.isActive ? { isActive: true } : {},
+  projection: {}, options: {}
+});
 
 const getPeople = getAll(Person, findArgs);
 const getIndividuals = getAll(Individual, findArgs);
@@ -23,8 +25,14 @@ const createOrganization = async (req: Request, res: Response) => {
 };
 
 const updatePerson = async (req: Request, res: Response) => {
-  const { create_date, __v, _id, ...update } = req.body;
-  res.json(await Person.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
+  const { create_date, __v, _id, ...update } = await req.body;
+  if (update.kind === "Individual") {
+    res.json(await Individual.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
+  }
+  else if (update.kind === "Organization") {
+    res.json(await Person.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
+  }
+  else throw new Error("Invalid kind!");
 };
 
 const deletePerson = async (req: Request, res: Response) => {
