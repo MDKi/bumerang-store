@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+import toJson from '@meanie/mongoose-to-json';
+mongoose.plugin(toJson);
+
 const neighborhoodSchema = new mongoose.Schema({
   neighborhood: {
     type: String,

@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+import toJson from '@meanie/mongoose-to-json';
+mongoose.plugin(toJson);
+
 const productSchema = new mongoose.Schema({
   name: {
     type: String,

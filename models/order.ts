@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+import toJson from '@meanie/mongoose-to-json';
+mongoose.plugin(toJson);
+
 import Product from "./product";
 import { Person } from "./person";
 

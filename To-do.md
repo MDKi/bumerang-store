@@ -1,15 +1,15 @@
 - [x] Orders.
   - [x] Order Model.
   - [x] Change products and customers DELETE logic.
-- [] Re-think what responses should contain.
-    (Maybe a message, oldObject and updatedObject)
-    - message would contain information about the transaction
-    - oldObject would contain the query result while updating or deleting
-    - updatedObject would be the created or updated object, or empty while deleting
-- [x] Rename Customer to Person, and its methods, route and service.
 - [] Other Models
   - [] ParamTag
   - [] ParamCategory
   - [] ParamOrderType
   - [] AttributeValue
   - [] Attribute
+- [x] Change json return _id -> id && __v -> nothing
+  - [] Fix tests
+  - [] Maybe I'll also want to rename req.params._id to req._id
+  - [] If I do that I'll need to fix tests again
+- [] Change queries and pagination to match Content-Range: filter, range and sorting.
+  - [] Yes, this requieres more changes in tests.
