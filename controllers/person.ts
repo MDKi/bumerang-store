@@ -17,6 +17,11 @@ const getPersonByID = async (req: Request, res: Response) => {
   res.json(await Person.findById(req.params._id));
 };
 
+const createPerson = async (req: Request, res: Response) => {
+  if (!req.body.kind) throw new Error("(POST) Invalid kind!");
+  if (req.body.kind === "Individual") return createIndividual;
+  if (req.body.kind === "Organization") return createOrganization;
+};
 const createIndividual = async (req: Request, res: Response) => {
   res.json(await Individual.create(req.body));
 };
@@ -32,7 +37,7 @@ const updatePerson = async (req: Request, res: Response) => {
   else if (update.kind === "Organization") {
     res.json(await Person.findOneAndUpdate({ _id: req.params._id }, update, { new: true }));
   }
-  else throw new Error("Invalid kind!");
+  else throw new Error("(PUT) Invalid kind!");
 };
 
 const deletePerson = async (req: Request, res: Response) => {
@@ -50,6 +55,7 @@ export {
   getIndividuals,
   getOrganizations,
   getPersonByID,
+  createPerson,
   createIndividual,
   createOrganization,
   updatePerson,

@@ -7,6 +7,7 @@ import {
   getIndividuals,
   getOrganizations,
   getPersonByID,
+  createPerson,
   createIndividual,
   createOrganization,
   updatePerson,
@@ -18,6 +19,7 @@ router.get("/individuals", catchError(getIndividuals, "Couldn't get individuals!
 router.get("/organizations", catchError(getOrganizations, "Couldn't get organizations!", "GET /people/individuals"));
 router.get("/:_id", catchError(getPersonByID, "Couldn't get a product!", "GET /people/organizations"));
 
+router.post("/", catchError(createPerson, "Couldn't create a person!", "POST /people"));
 router.post("/individuals", catchError(createIndividual, "Couldn't create an individual!", "POST /people/individuals"));
 router.post("/organizations", catchError(createOrganization, "Couldn't create an organization!", "POST /people/organizations"));
 
